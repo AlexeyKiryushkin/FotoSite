@@ -732,3 +732,83 @@ tr.pager td {
         }
 }
 /* END: Mobile Styles */
+
+.GridViewHeader
+{
+  border: 2px solid #FFFFFF;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.GridViewEditedRow
+{
+  border: 1px solid #FFFFFF;
+}
+
+.GridViewRows
+{
+  padding: 0px;
+  margin: 0px;
+}
+
+.GridViewAlterRows
+{
+  padding: 0px;
+  margin: 0px;
+}
+
+.GridViewSelectedRow
+{
+  font-weight: bold;
+}
+
+.GridViewHeader
+{
+  font-weight: bold;
+}
+
+.GridViewHeader a:hover
+{
+  text-decoration: underline overline;
+}
+
+.GridViewRows
+{
+  color: #0c528c;
+  background-color: #F7F6F3;
+}
+
+.GridViewAlterRows
+{
+  color: #0c528c;
+  background-color: #FFFFFF;
+}
+
+.GridViewSelectedRow
+{
+  color: #0c528c;
+  background-color: #eceeec;
+}
+
+.GridViewEditedRow
+{
+  color: #0c528c;
+  background-color: #eceeec;
+}
+
+.GridViewHeader
+{
+  color: #FFFFFF;
+  background-color: #0c528c;
+}
+
+.GridViewHeader a
+{
+  color: #FFFFFF;
+}
+
+.GridViewHeader a:hover
+{
+  color: #FFFFFF;
+}
+

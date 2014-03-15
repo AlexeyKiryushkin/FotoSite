@@ -7,11 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FotoSite
-{
-
-
-	public partial class _Default
-	{
-	}
+namespace FotoSite {
+    
+    
+    public partial class _Default {
+        
+        /// <summary>
+        /// CurrentFolderLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CurrentFolderLabel;
+        
+        /// <summary>
+        /// FoldersGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView FoldersGrid;
+        
+        /// <summary>
+        /// FolderListDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource FolderListDataSource;
+    }
 }

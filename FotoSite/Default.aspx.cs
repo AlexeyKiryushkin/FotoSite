@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+
+using FotoSite.Properties;
 
 namespace FotoSite
 {
@@ -11,7 +14,25 @@ namespace FotoSite
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			if (!IsPostBack)
+			{
+				//CurrentFolderLabel.Text = Settings.Default.FotoFolder;
+			}
+		}
 
+		void FillForCurrentFolder()
+		{
+			FillFoldersList();
+
+			FillImagesList();
+		}
+
+		void FillFoldersList()
+		{
+		}
+
+		void FillImagesList()
+		{
 		}
 	}
 }
