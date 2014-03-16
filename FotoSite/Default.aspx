@@ -35,8 +35,8 @@
 		<asp:Repeater ID="ImagesListRepeater" runat="server" DataSourceID="ImagesListDataSource" >
       
 			<ItemTemplate>
-				<div style="padding: 1px; float:left;">
-					<a href="<%# Container.DataItem %>"><img src="SmallImage.axd?name=<%# Container.DataItem %>&h=200" /></a>
+				<div style="padding: 2px; float:left;">
+					<a href="SmallImage.axd?name=<%# Container.DataItem %>&h=4000"><img src="SmallImage.axd?name=<%# Container.DataItem %>&h=250" /></a>
 				</div>
 			</ItemTemplate>
 
