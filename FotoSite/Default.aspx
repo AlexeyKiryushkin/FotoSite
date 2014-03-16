@@ -36,7 +36,7 @@
       
 			<ItemTemplate>
 				<div style="padding: 1px; float:left;">
-					<a href="<%# Container.DataItem %>"><img src="<%# Container.DataItem %>" height="200" /></a>
+					<a href="<%# Container.DataItem %>"><img src="SmallImage.axd?name=<%# Container.DataItem %>&h=200" /></a>
 				</div>
 			</ItemTemplate>
 

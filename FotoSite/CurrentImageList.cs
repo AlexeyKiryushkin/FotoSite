@@ -21,6 +21,8 @@ namespace FotoSite
 				Uri siteUri = new Uri(HttpContext.Current.Request.ServerVariables["APPL_PHYSICAL_PATH"], UriKind.Absolute);
 
 				List<string> imagelist = Directory.GetFiles(currPath, "*.jpg")
+//					.Select(s => HttpUtility.UrlEncode(siteUri.MakeRelativeUri(new Uri(s, UriKind.Absolute)).ToString())).ToList();
+//					.Select(s => "~/" + siteUri.MakeRelativeUri(new Uri(s, UriKind.Absolute)).ToString()).ToList();
 					.Select(s => siteUri.MakeRelativeUri(new Uri(s, UriKind.Absolute)).ToString()).ToList();
 
 				return imagelist;
