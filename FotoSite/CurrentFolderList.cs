@@ -26,7 +26,7 @@ namespace FotoSite
 			{
 				Helper.Log.ErrorFormat("{0} при получении списка каталогов в {1}", ex.GetMessages(), currPath);
 
-				return null;
+				return new List<DirectoryInfo>();
 			}
 		}
 	}

@@ -28,12 +28,15 @@
 		</asp:Repeater>
 	</div>
 
+	<div style="clear:both">
+	</div>
+
 	<div>
 		<asp:Repeater ID="ImagesListRepeater" runat="server" DataSourceID="ImagesListDataSource" >
       
 			<ItemTemplate>
 				<div style="padding: 1px; float:left;">
-					<img src="" />
+					<a href="<%# Container.DataItem %>"><img src="<%# Container.DataItem %>" height="200" /></a>
 				</div>
 			</ItemTemplate>
 
@@ -42,7 +45,7 @@
 
   <asp:ObjectDataSource ID="FolderListDataSource" runat="server" 
     TypeName="FotoSite.CurrentFolderList" 
-    SelectMethod="GetFolders" 
+    SelectMethod="GetFolders"> 
 		<SelectParameters>
 			<asp:ControlParameter ControlID="CurrentPathLabel" DefaultValue="" Name="currPath" PropertyName="Text" Type="String" ConvertEmptyStringToNull="False" />
 		</SelectParameters>
@@ -50,7 +53,7 @@
 
   <asp:ObjectDataSource ID="ImagesListDataSource" runat="server" 
     TypeName="FotoSite.CurrentImageList" 
-    SelectMethod="GetImages" 
+    SelectMethod="GetImages"> 
 		<SelectParameters>
 			<asp:ControlParameter ControlID="CurrentPathLabel" DefaultValue="" Name="currPath" PropertyName="Text" Type="String" ConvertEmptyStringToNull="False" />
 		</SelectParameters>
