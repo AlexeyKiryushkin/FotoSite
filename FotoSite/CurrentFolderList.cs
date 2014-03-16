@@ -8,19 +8,19 @@ using AmsDispatch.Util;
 
 using FotoSite.Properties;
 
-
 namespace FotoSite
 {
 	public class CurrentFolderList
 	{
-		public List<DirectoryInfo> GetFolders(string currFolder)
+		public List<DirectoryInfo> GetFolders(string currPath)
 		{
-			string currPath = Settings.Default.FotoFolder + "\\" + currFolder;
 			Helper.Log.InfoFormat("Получаем список каталогов в {0}", currPath);
 
 			try
 			{
-				return Directory.GetDirectories(currPath).Select(s => new DirectoryInfo(s)).ToList();
+				List<DirectoryInfo> dirlist = Directory.GetDirectories(currPath).Select(s => new DirectoryInfo(s)).ToList();
+
+				return dirlist;
 			}
 			catch (Exception ex)
 			{

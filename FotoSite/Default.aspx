@@ -7,39 +7,52 @@
     </section>
 </asp:Content>
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
-	<asp:Label ID="CurrentFolderLabel" runat="server" Text=""></asp:Label>
 
-  <div style="margin-top: 5px;">
-    <asp:GridView ID="FoldersGrid" runat="server" AutoGenerateColumns="False" CellPadding="4"
-      GridLines="None" DataSourceID="FolderListDataSource" ShowHeader="False"
-      SelectedIndex="-1">
-      <RowStyle CssClass="GridViewRows" />
-      <FooterStyle CssClass="GridViewHeader" />
-      <PagerStyle CssClass="GridViewHeader" />
-      <SelectedRowStyle CssClass="GridViewSelectedRow" />
-      <HeaderStyle CssClass="GridViewHeader" />
-      <EditRowStyle CssClass="GridViewEditedRow" />
-      <AlternatingRowStyle CssClass="GridViewAlterRows" />
-      <Columns>
-        <asp:BoundField DataField="Name" ReadOnly="True" SortExpression="Name" />
-      </Columns>
+	<div>
+		<asp:Label ID="CurrentPathLabel" runat="server" Text="" />
+	</div>
+	
+	<div>
+		<div style="padding: 1px; float:left;">
+			<asp:Button ID="OpenUpFolderBtn" runat="server" Text=".." OnClick="OpenFolderBtn_Click"/>
+		</div>
 
-      <EmptyDataTemplate>
-        <div>
-          <asp:Label ID="EmptyDataLabel" runat="server" Text="Отсутствуют данные для отображения" CssClass="Labels" />
-        </div>
-      </EmptyDataTemplate>
+		<asp:Repeater ID="FoldersListRepeater" runat="server" DataSourceID="FolderListDataSource" >
+      
+			<ItemTemplate>
+				<div style="padding: 1px; float:left;">
+					<asp:Button ID="OpenFolderBtn" runat="server" Text='<%# Bind("Name") %>' OnClick="OpenFolderBtn_Click"/>
+				</div>
+			</ItemTemplate>
 
-    </asp:GridView>
+		</asp:Repeater>
+	</div>
 
-  </div>
+	<div>
+		<asp:Repeater ID="ImagesListRepeater" runat="server" DataSourceID="ImagesListDataSource" >
+      
+			<ItemTemplate>
+				<div style="padding: 1px; float:left;">
+					<img src="" />
+				</div>
+			</ItemTemplate>
+
+		</asp:Repeater>
+	</div>
 
   <asp:ObjectDataSource ID="FolderListDataSource" runat="server" 
     TypeName="FotoSite.CurrentFolderList" 
     SelectMethod="GetFolders" 
-    SelectCountMethod="GetFoldersCount">
 		<SelectParameters>
-			<asp:ControlParameter ControlID="CurrentFolderLabel" DefaultValue="" Name="currFolder" PropertyName="Text" Type="String" ConvertEmptyStringToNull="False" />
+			<asp:ControlParameter ControlID="CurrentPathLabel" DefaultValue="" Name="currPath" PropertyName="Text" Type="String" ConvertEmptyStringToNull="False" />
+		</SelectParameters>
+  </asp:ObjectDataSource>
+
+  <asp:ObjectDataSource ID="ImagesListDataSource" runat="server" 
+    TypeName="FotoSite.CurrentImageList" 
+    SelectMethod="GetImages" 
+		<SelectParameters>
+			<asp:ControlParameter ControlID="CurrentPathLabel" DefaultValue="" Name="currPath" PropertyName="Text" Type="String" ConvertEmptyStringToNull="False" />
 		</SelectParameters>
   </asp:ObjectDataSource>
 

@@ -13,30 +13,39 @@ namespace FotoSite {
     public partial class _Default {
         
         /// <summary>
-        /// CurrentFolderLabel control.
+        /// CurrentPathLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentFolderLabel;
+        protected global::System.Web.UI.WebControls.Label CurrentPathLabel;
         
         /// <summary>
-        /// FoldersGrid control.
+        /// OpenUpFolderBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView FoldersGrid;
+        protected global::System.Web.UI.WebControls.Button OpenUpFolderBtn;
         
         /// <summary>
-        /// FolderListDataSource control.
+        /// FoldersListRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource FolderListDataSource;
+        protected global::System.Web.UI.WebControls.Repeater FoldersListRepeater;
+        
+        /// <summary>
+        /// ImagesListRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater ImagesListRepeater;
     }
 }
