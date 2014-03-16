@@ -9,7 +9,7 @@
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
 
 	<div>
-		<asp:Label ID="CurrentPathLabel" runat="server" Text="" />
+		<asp:Label ID="CurrentPathLabel" runat="server" Text="" Visible="false"/>
 	</div>
 	
 	<div>
