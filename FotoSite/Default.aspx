@@ -21,7 +21,7 @@
       
 			<ItemTemplate>
 				<div style="padding: 1px; float:left;">
-					<asp:Button ID="OpenFolderBtn" runat="server" Text='<%# Bind("Name") %>' OnClick="OpenFolderBtn_Click"/>
+					<asp:Button ID="OpenFolderBtn" runat="server" Text='<%# Eval("Name") %>' OnClick="OpenFolderBtn_Click"/>
 				</div>
 			</ItemTemplate>
 
@@ -36,7 +36,12 @@
       
 			<ItemTemplate>
 				<div style="padding: 2px; float:left;">
-					<a href="SmallImage.axd?name=<%# Container.DataItem %>&h=4000"><img src="SmallImage.axd?name=<%# Container.DataItem %>&h=250" /></a>
+					<div style="padding: 2px;">
+						<a href="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=4000"><img src="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=200" /></a>
+					</div>
+					<div style="padding: 2px; text-align: center;">
+						<asp:Label ID="ImageNameLabel" runat="server" Text='<%# Eval("ImageName") %>' />
+					</div>
 				</div>
 			</ItemTemplate>
 

@@ -9,9 +9,23 @@ using FotoSite.Properties;
 
 namespace FotoSite
 {
+	public class ImageInfo
+	{
+		public ImageInfo(Uri rooturi, string fullpath)
+		{
+			RelativeName = rooturi.MakeRelativeUri(new Uri(fullpath, UriKind.Absolute)).ToString();
+
+			ImageName = Path.GetFileNameWithoutExtension(fullpath);
+		}
+
+		public string RelativeName {get;set;}
+
+		public string ImageName {get;set;}
+	}
+
 	public class CurrentImageList
 	{
-		public List<string> GetImages(string currPath)
+		public List<ImageInfo> GetImages(string currPath)
 		{
 			Helper.Log.InfoFormat("Получаем список фоток в {0}", currPath);
 
@@ -19,8 +33,8 @@ namespace FotoSite
 			{
 				Uri rootUri = new Uri(Settings.Default.FotoFolder, UriKind.Absolute);
 
-				List<string> imagelist = Directory.GetFiles(currPath, "*.jpg")
-					.Select(s => rootUri.MakeRelativeUri(new Uri(s, UriKind.Absolute)).ToString()).ToList();
+				List<ImageInfo> imagelist = Directory.GetFiles(currPath, "*.jpg")
+					.Select(s => new ImageInfo(rootUri, s)).ToList();
 
 				return imagelist;
 			}
@@ -28,7 +42,7 @@ namespace FotoSite
 			{
 				Helper.Log.ErrorFormat("{0} при получении списка фоток в {1}", ex.GetMessages(), currPath);
 
-				return new List<string>();
+				return new List<ImageInfo>();
 			}
 		}
 	}
