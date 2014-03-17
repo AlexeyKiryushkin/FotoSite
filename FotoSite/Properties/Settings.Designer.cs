@@ -25,7 +25,7 @@ namespace FotoSite.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\PROJECTS\\CS\\FotoSite\\FotoSite\\Foto\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Администратор\\Documents\\Мои рисунки\\foto\\")]
         public string FotoFolder {
             get {
                 return ((string)(this["FotoFolder"]));

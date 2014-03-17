@@ -6,6 +6,8 @@ using System.IO;
 
 using AmsDispatch.Util;
 
+using FotoSite.Properties;
+
 namespace FotoSite
 {
 	public class SmallImageHandler : IHttpHandler
@@ -28,7 +30,8 @@ namespace FotoSite
 		{
 			string imagename = context.Request.Params["name"].ToString();
 			string toHeight = context.Request.Params["h"].ToString();
-			string fullPath = HttpContext.Current.Server.MapPath(imagename);
+
+			string fullPath = Path.GetFullPath(Settings.Default.FotoFolder + imagename);
 
 			//Helper.Log.InfoFormat("Запрос на фото '{0}' высотой {1}px, файл '{2}'", imagename, toHeight, fullPath);
 

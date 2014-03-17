@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.IO;
 
 using AmsDispatch.Util;
@@ -18,12 +17,10 @@ namespace FotoSite
 
 			try
 			{
-				Uri siteUri = new Uri(HttpContext.Current.Request.ServerVariables["APPL_PHYSICAL_PATH"], UriKind.Absolute);
+				Uri rootUri = new Uri(Settings.Default.FotoFolder, UriKind.Absolute);
 
 				List<string> imagelist = Directory.GetFiles(currPath, "*.jpg")
-//					.Select(s => HttpUtility.UrlEncode(siteUri.MakeRelativeUri(new Uri(s, UriKind.Absolute)).ToString())).ToList();
-//					.Select(s => "~/" + siteUri.MakeRelativeUri(new Uri(s, UriKind.Absolute)).ToString()).ToList();
-					.Select(s => siteUri.MakeRelativeUri(new Uri(s, UriKind.Absolute)).ToString()).ToList();
+					.Select(s => rootUri.MakeRelativeUri(new Uri(s, UriKind.Absolute)).ToString()).ToList();
 
 				return imagelist;
 			}
