@@ -42,9 +42,6 @@
 					<div style="padding: 2px; text-align: center;">
 						<asp:Label ID="ImageNameLabel" runat="server" Text='<%# Eval("ImageName") %>' />
 					</div>
-					<div style="padding: 1px; text-align: center; font-size: small;">
-						<asp:Label ID="ExifInfoLabel" runat="server" Text='<%# Eval("ExifInfo") %>' />
-					</div>
 				</div>
 			</ItemTemplate>
 
