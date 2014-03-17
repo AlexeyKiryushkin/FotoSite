@@ -40,5 +40,32 @@ namespace FotoSite.Properties {
                 return ((string)(this["ProxyIP"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\UTIL\\_FOTO\\ExifTool\\exiftool.exe")]
+        public string ExifToolCmd {
+            get {
+                return ((string)(this["ExifToolCmd"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-p C:\\UTIL\\_FOTO\\ExifTool\\exiftool.fmt")]
+        public string ExifToolArgs {
+            get {
+                return ((string)(this["ExifToolArgs"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int ExifToolTimeoutMilliSec {
+            get {
+                return ((int)(this["ExifToolTimeoutMilliSec"]));
+            }
+        }
     }
 }
