@@ -84,8 +84,10 @@ namespace FotoSite
 			}
 			catch (Exception ex)
 			{
-				Helper.Log.ErrorFormat("{0} - Ошибка при выводе картинки '{1}' высотой {2}px", ex.GetMessages(), imagename, toHeight);
-				Helper.Log.Debug(string.Format("Ошибка при выводе картинки '{0}' высотой {1}px: ", imagename, toHeight), ex);
+				Helper.Log.ErrorFormat("{0} - Ошибка при выводе картинки '{1}' высотой {2}px [{3}]", 
+					ex.GetMessages(), imagename, toHeight, context.Request.UserHostAddress);
+				Helper.Log.Debug(string.Format("Ошибка при выводе картинки '{0}' высотой {1}px [{2}]: ", 
+					imagename, toHeight, context.Request.UserHostAddress), ex);
 			}
 		}
 

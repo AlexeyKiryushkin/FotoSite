@@ -15,6 +15,7 @@ namespace FotoSite
 		{
 			if (!IsPostBack)
 			{
+				Helper.Log.InfoFormat("Подключение {0}", Context.Request.UserHostAddress);
 				CurrentPathLabel.Text = Path.GetFullPath(Settings.Default.FotoFolder);
 			}
 		}
@@ -30,13 +31,13 @@ namespace FotoSite
 		{
 			try
 			{
-				Helper.Log.InfoFormat("Перезагружаем список каталогов для {0}", CurrentPathLabel.Text);
+				Helper.Log.InfoFormat("Перезагружаем список каталогов '{0}' [{1}]", CurrentPathLabel.Text, Context.Request.UserHostAddress);
 
 				FoldersListRepeater.DataBind();
 			}
 			catch (Exception ex)
 			{
-				Helper.Log.ErrorFormat("{0} при получении списка каталогов в {1}", ex.GetMessages(), CurrentPathLabel.Text);
+				Helper.Log.ErrorFormat("{0} при получении списка каталогов '{1}' [{2}]", ex.GetMessages(), CurrentPathLabel.Text, Context.Request.UserHostAddress);
 			}
 		}
 
@@ -50,7 +51,7 @@ namespace FotoSite
 
 			if (Path.GetFullPath(CurrentPathLabel.Text + nextFolder).Length >= Path.GetFullPath(Settings.Default.FotoFolder).Length)
 			{
-				Helper.Log.InfoFormat("Переходим к {0}", nextFolder);
+				Helper.Log.InfoFormat("Переходим к {0} [{1}]", nextFolder, Context.Request.UserHostAddress);
 
 				CurrentPathLabel.Text = Path.GetFullPath(CurrentPathLabel.Text + nextFolder);
 
