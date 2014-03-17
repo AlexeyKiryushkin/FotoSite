@@ -8,8 +8,14 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+	<div style="height: 100px">
+	</div>
 	<div class="Warning">
-		Чтобы не израсходовать весь свой интернет-трафик добавьте IP-адрес этого сайта -  
-		<asp:Label ID="ServerIpLabel" runat="server" /> - в список исключений для Proxy в настройках вашего браузера!
+		Чтобы не израсходовать весь свой интернет-трафик<br />
+			добавьте IP-адрес этого сайта - <br />
+			<asp:Label ID="ServerIpLabel" runat="server" /><br />
+			- в список исключений для Proxy в настройках вашего браузера!
+	</div>
+	<div style="height: 200px">
 	</div>
 </asp:Content>

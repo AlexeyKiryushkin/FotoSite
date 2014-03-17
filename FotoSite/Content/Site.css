@@ -737,7 +737,9 @@ tr.pager td {
 {
 	font-size: x-large;
 	font-weight: bold;
-	color: #606060;
+	color: #707070;
 	vertical-align: middle;
 	text-align: center;
+	width: 90%;
 }
+
