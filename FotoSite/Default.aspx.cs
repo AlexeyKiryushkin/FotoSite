@@ -14,7 +14,10 @@ namespace FotoSite
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (Context.Request.UserHostAddress == Settings.Default.ProxyIP)
-					Response.Redirect("WarningProxy.aspx", endResponse: true);
+			{
+				Helper.Log.WarnFormat("Подключение {0} -> перенаправление на предупреждение о прокси!", Context.Request.UserHostAddress);
+				Response.Redirect("WarningProxy.aspx", endResponse: true);
+			}
 
 			if (!IsPostBack)
 			{
