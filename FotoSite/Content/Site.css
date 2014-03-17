@@ -732,3 +732,12 @@ tr.pager td {
         }
 }
 /* END: Mobile Styles */
+
+.Warning
+{
+	font-size: x-large;
+	font-weight: bold;
+	color: #606060;
+	vertical-align: middle;
+	text-align: center;
+}

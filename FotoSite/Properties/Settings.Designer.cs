@@ -31,5 +31,14 @@ namespace FotoSite.Properties {
                 return ((string)(this["FotoFolder"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.252")]
+        public string ProxyIP {
+            get {
+                return ((string)(this["ProxyIP"]));
+            }
+        }
     }
 }
