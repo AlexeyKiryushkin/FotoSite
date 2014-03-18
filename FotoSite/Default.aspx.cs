@@ -15,13 +15,13 @@ namespace FotoSite
 		{
 			if (Context.Request.UserHostAddress == Settings.Default.ProxyIP)
 			{
-				Helper.Log.WarnFormat("Подключение {0} -> перенаправление на предупреждение о прокси!", Context.Request.UserHostAddress);
-				Response.Redirect("WarningProxy.aspx", endResponse: true);
+				Helper.Log.WarnFormat("[{0}] -> перенаправление на предупреждение о прокси!", Context.Request.UserHostAddress);
+				Server.Transfer("WarningProxy.aspx");
 			}
 
 			if (!IsPostBack)
 			{
-				Helper.Log.InfoFormat("Подключение {0}", Context.Request.UserHostAddress);
+				Helper.Log.InfoFormat("[{0}] подключение", Context.Request.UserHostAddress);
 				CurrentPathLabel.Text = Path.GetFullPath(Settings.Default.FotoFolder);
 			}
 		}
@@ -37,13 +37,13 @@ namespace FotoSite
 		{
 			try
 			{
-				Helper.Log.InfoFormat("Перезагружаем список каталогов '{0}' [{1}]", CurrentPathLabel.Text, Context.Request.UserHostAddress);
+				Helper.Log.InfoFormat("[{0}] Перезагружаем список каталогов '{1}' ", Context.Request.UserHostAddress, CurrentPathLabel.Text );
 
 				FoldersListRepeater.DataBind();
 			}
 			catch (Exception ex)
 			{
-				Helper.Log.ErrorFormat("{0} при получении списка каталогов '{1}' [{2}]", ex.GetMessages(), CurrentPathLabel.Text, Context.Request.UserHostAddress);
+				Helper.Log.ErrorFormat("[{0}] {1} при получении списка каталогов '{2}' ", Context.Request.UserHostAddress, ex.GetMessages(), CurrentPathLabel.Text);
 			}
 		}
 
@@ -57,7 +57,7 @@ namespace FotoSite
 
 			if (Path.GetFullPath(CurrentPathLabel.Text + nextFolder).Length >= Path.GetFullPath(Settings.Default.FotoFolder).Length)
 			{
-				Helper.Log.InfoFormat("Переходим к {0} [{1}]", nextFolder, Context.Request.UserHostAddress);
+				Helper.Log.InfoFormat("[{0}] Переходим к {1} ", Context.Request.UserHostAddress, nextFolder );
 
 				CurrentPathLabel.Text = Path.GetFullPath(CurrentPathLabel.Text + nextFolder);
 
