@@ -59,7 +59,7 @@ Name: {app}; Type: dirifempty
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-; Скомпилированный код сайта и компоненты
+; Где recursesubdirs - обшариваются все каталоги
 Source: "..\FotoSite\bin\*.dll"; DestDir: "{#WebDir}\bin"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\FotoSite\*.ico"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\FotoSite\*.aspx"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -69,8 +69,10 @@ Source: "..\FotoSite\*.Master"; DestDir: "{#WebDir}"; Flags: ignoreversion recur
 Source: "..\FotoSite\*.css"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\FotoSite\*.png"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\FotoSite\*.js"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\FotoSite\Web.config"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs; AfterInstall: ModifyConfig('{#WebDir}\Web.config')
-Source: "..\FotoSite\Bundle.config"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
+; Web.config-ов два, а менять параметр нужно только в одном 
+Source: "..\FotoSite\Web.config"; DestDir: "{#WebDir}"; Flags: ignoreversion; AfterInstall: ModifyConfig('{#WebDir}\Web.config')
+Source: "..\FotoSite\Account\Web.config"; DestDir: "{#WebDir}\Account"; Flags: ignoreversion; 
+Source: "..\FotoSite\Bundle.config"; DestDir: "{#WebDir}"; Flags: ignoreversion 
 
 [Code]
 var
@@ -247,6 +249,8 @@ begin
 
 	if result then
 	begin
+    Log('strfrom: ' + strfrom);
+    Log('strto: ' + strto);
 		result := StringChangeEx(fileAsStr, strfrom, strto, true) > 0;
 
 		if result then
@@ -272,6 +276,8 @@ end;
 procedure ModifyConfig(const configfile:string);
 begin
 	configfile:=ExpandConstant(configfile);
+  FotoFolderName:=FotoFolderNamePage.Values[0];
+
 	if FotoFolderName <> '{#DefaultFotoFolderName}' then
 	begin
 		// Исправление имени сервера в конфигурации
