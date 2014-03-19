@@ -77,14 +77,14 @@ Source: "..\FotoSite\*.js"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesu
 Source: "..\FotoSite\Web.config"; DestDir: "{#WebDir}"; Flags: ignoreversion; AfterInstall: ModifyConfig('{#WebDir}\Web.config')
 Source: "..\FotoSite\Account\Web.config"; DestDir: "{#WebDir}\Account"; Flags: ignoreversion
 ; Последний файл сайта, можно создавать сам сайт
-Source: "..\FotoSite\Bundle.config"; DestDir: "{#WebDir}"; Flags: ignoreversion; AfterInstall: CreateFotoSiteVirtualDir();
+Source: "..\FotoSite\Bundle.config"; DestDir: "{#WebDir}"; Flags: ignoreversion; AfterInstall: CreateFotoSiteVirtualDir()
 
 [Code]
 var
   WebSiteNamePage: TInputQueryWizardPage;
   WebSiteName: string;
 
-  FotoFolderNamePage: TInputQueryWizardPage;
+  FotoFolderNamePage: TInputDirWizardPage;
   FotoFolderName: string;
 
 const
@@ -95,11 +95,11 @@ const
 procedure CreateWebSiteNamePage;
 begin
 	// Форма для ввода имени Web сайта
-	WebSiteNamePage := CreateInputQueryPage(wpSelectProgramGroup,'Web сайт', 'Уточнение имени Web сайта',
-		'Исправьте требуемое имя Web сайта если оно отличается от FotoSite:');
+	WebSiteNamePage := CreateInputQueryPage(wpSelectProgramGroup, 'Web сайт', 'Уточнение имени Web сайта',
+		'Исправьте требуемое имя Web сайта если оно отличается от указанного:');
 
 	// Поле для ввода
-	WebSiteNamePage.Add('Имя:', False);
+	WebSiteNamePage.Add('Имя сайта:', False);
 
 	// Значение по умолчанию
 	WebSiteNamePage.Values[0] := GetPreviousData('WebSiteName', 'FotoSite');
@@ -110,11 +110,11 @@ procedure CreateFotoFolderNamePage;
 begin
 	// Форма для ввода имени каталога с фотографиями
   // WebSiteNamePage.ID - после какой формы
-	FotoFolderNamePage := CreateInputQueryPage(WebSiteNamePage.ID,'Web сайт', 'Уточнение имени папки с фотографиями',
-		'Исправьте папки с фотографиями, если оно отличается от {#DefaultFotoFolderName}:');
+	FotoFolderNamePage := CreateInputDirPage(WebSiteNamePage.ID, 'Web сайт', 'Уточнение имени папки с фотографиями',
+		'Исправьте имя папки с фотографиями, которую будет показывать сайт, если она отличается от указанной:', false, '');
 
 	// Поле для ввода
-	FotoFolderNamePage.Add('Имя:', False);
+	FotoFolderNamePage.Add('Каталог с фотографиями:');
 
 	// Значение по умолчанию
 	FotoFolderNamePage.Values[0] := GetPreviousData('FotoFolderName', '{#DefaultFotoFolderName}');
@@ -152,21 +152,23 @@ begin
 end;
 
 // Создание сайта на основе каталога со скопированными файлами
-function CreateFotoSiteVirtualDir() : Boolean;
+procedure CreateFotoSiteVirtualDir();
 var
 	IIS, WebSite, WebServer, WebRoot, VDir: Variant;
 	ErrorCode: Integer;
+  Success: Boolean;
+
 begin
-	result:=true;
+	Success:=true;
 	// подключение к IIS
 	try
 		IIS := CreateOleObject('IISNamespace');
 	except
-		result:=false;
+		Success:=false;
 		MsgBox( CustomMessage('InstallIIS'), mbError, MB_OK );
 	end;
 
-	if result then
+	if Success then
 	begin
 		try
 			// берем рычаги
@@ -196,10 +198,10 @@ begin
 
 			// открываем сайт в браузере
 			ShellExec( 'open', 'http://' + IISServerName + '/' + WebSiteName + '/', '', '', SW_SHOW, ewNoWait, ErrorCode );
-			result:=true;
+			Success:=true;
 		except
 			MsgBox( CustomMessage('VirtualDirNotInstalled'), mbError, MB_OK );
-			result:=false;
+			Success:=false;
 		end;
 	end;
 end;
