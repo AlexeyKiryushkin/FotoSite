@@ -71,7 +71,8 @@ namespace FotoSite
 
 			try
 			{
-				Uri rootUri = new Uri(Settings.Default.FotoFolder, UriKind.Absolute);
+				// Uri считает каталогом только то, что заканчивается слэшем!
+				Uri rootUri = new Uri(Util.AddBackSlash(Settings.Default.FotoFolder), UriKind.Absolute);
 
 				List<ImageInfo> imagelist = Directory.GetFiles(currPath, "*.jpg")
 					.Select(s => new ImageInfo(rootUri, s)).ToList();

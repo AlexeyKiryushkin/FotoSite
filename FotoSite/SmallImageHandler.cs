@@ -31,7 +31,7 @@ namespace FotoSite
 			string imagename = context.Request.Params["name"].ToString();
 			string toHeight = context.Request.Params["h"].ToString();
 
-			string fullPath = Path.GetFullPath(Settings.Default.FotoFolder + imagename);
+			string fullPath = Path.GetFullPath(Path.Combine(Settings.Default.FotoFolder, imagename));
 
 			//Helper.Log.InfoFormat("Запрос на фото '{0}' высотой {1}px, файл '{2}'", imagename, toHeight, fullPath);
 

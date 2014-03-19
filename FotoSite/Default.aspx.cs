@@ -53,13 +53,16 @@ namespace FotoSite
 
 		protected void OpenFolderBtn_Click(object sender, EventArgs e)
 		{
-			string nextFolder = ((Button)sender).Text + "\\";
+			string nextFolder = ((Button)sender).Text;
 
-			if (Path.GetFullPath(CurrentPathLabel.Text + nextFolder).Length >= Path.GetFullPath(Settings.Default.FotoFolder).Length)
+			string nextPath = Util.AddBackSlash(Path.GetFullPath(Path.Combine(CurrentPathLabel.Text, nextFolder)));
+			string rootPath = Util.AddBackSlash(Path.GetFullPath(Settings.Default.FotoFolder));
+
+			if (nextPath.Length >= rootPath.Length)
 			{
 				Helper.Log.InfoFormat("[{0}] Переходим к {1} ", Context.Request.UserHostAddress, nextFolder );
 
-				CurrentPathLabel.Text = Path.GetFullPath(CurrentPathLabel.Text + nextFolder);
+				CurrentPathLabel.Text = nextPath;
 
 				FillForCurrentFolder();
 			}
