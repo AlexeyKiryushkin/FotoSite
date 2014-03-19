@@ -6,7 +6,8 @@
 ;{app} - The application directory, DefaultDirName, which the user selects on the Select Destination Location page of the wizard.
 ; а вот подкаталоги без возможности изменения
 #define WebDir "{app}\FotoSiteReally"
-#define DefaultFotoFolderName "C:\Users\Администратор\Documents\Мои рисунки\foto\"
+#define UtilDir "{app}\util"
+#define DefaultFotoFolderName "C:\Users\Администратор\Documents\Мои рисунки\foto"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -48,7 +49,8 @@ russian.VirtualDirNotInstalled=Неудалось создать виртуальный каталог IIS для web
 russian.NoLoadFile=Не удалось загрузить файл      %n%1      %n
 russian.NoModifyConfig=Не удалось применить изменения конфигурации!     %n%nВручную внесите изменения в файл конфигурации      %n%1      %n
 russian.NoStringToReplace=В файле конфигурации %n%1      %nне найдено ни одного вхождения строки %2      %n
-russian.NoSaveFile=Не удалось сохранить файл     %n%1      %n
+russian.RepalceFailed=Системная ошибка при изменении конфигурации:      %n%1        %n
+russian.BadReplaceCmdLine=Неправильная командная строка для изменения конфигурации:      %n%1        %n
 
 [UninstallDelete]
 ;WARNING! В некоторых случаях удаление каталога в котором лежал сайт приводит к тому, что у серверной части ASP.NET
@@ -59,6 +61,8 @@ Name: {app}; Type: dirifempty
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+; Утилитка для замен текста в файлах
+Source: ".\util\replace.exe"; DestDir: "{#UtilDir}"; Flags: ignoreversion
 ; Где recursesubdirs - обшариваются все каталоги
 Source: "..\FotoSite\bin\*.dll"; DestDir: "{#WebDir}\bin"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\FotoSite\*.ico"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -69,10 +73,11 @@ Source: "..\FotoSite\*.Master"; DestDir: "{#WebDir}"; Flags: ignoreversion recur
 Source: "..\FotoSite\*.css"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\FotoSite\*.png"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\FotoSite\*.js"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
-; Web.config-ов два, а менять параметр нужно только в одном 
+; Web.config-ов два, а менять параметр нужно только в одном
 Source: "..\FotoSite\Web.config"; DestDir: "{#WebDir}"; Flags: ignoreversion; AfterInstall: ModifyConfig('{#WebDir}\Web.config')
-Source: "..\FotoSite\Account\Web.config"; DestDir: "{#WebDir}\Account"; Flags: ignoreversion; 
-Source: "..\FotoSite\Bundle.config"; DestDir: "{#WebDir}"; Flags: ignoreversion 
+Source: "..\FotoSite\Account\Web.config"; DestDir: "{#WebDir}\Account"; Flags: ignoreversion
+; Последний файл сайта, можно создавать сам сайт
+Source: "..\FotoSite\Bundle.config"; DestDir: "{#WebDir}"; Flags: ignoreversion; AfterInstall: CreateFotoSiteVirtualDir();
 
 [Code]
 var
@@ -237,39 +242,47 @@ end;
 // Замена подстроки в заданном файле
 function ReplaceInFile(const filename:string; const strfrom:string; const strto:string ): Boolean;
 var
-	fileAsAnsiStr:AnsiString;
-	fileAsStr:String;
+  ResultCode: Integer;
+  params: String;
+
 begin
-	// сохраним оригинал
-	FileCopy(filename, filename + '.bak', false);
+  params := '"' + filename + '" "' + strfrom + '" "' + strto + '"';
+  Log('params: ' + params);
 
-	result:=LoadStringFromFile(filename, fileAsAnsiStr);
-
-	fileAsStr := fileAsAnsiStr;
-
-	if result then
-	begin
-    Log('strfrom: ' + strfrom);
-    Log('strto: ' + strto);
-		result := StringChangeEx(fileAsStr, strfrom, strto, true) > 0;
-
-		if result then
-		begin
-			result:=SaveStringToFile(filename, fileAsStr, false);
-
-			if not result then
-			begin
-				MsgBox( FmtMessage(CustomMessage('NoSaveFile'), [filename]), mbError, MB_OK );
-			end;
-		end else
-		begin
-			MsgBox( FmtMessage(CustomMessage('NoStringToReplace'), [filename,strfrom]), mbError, MB_OK );
-		end;
-	end else
-	begin
+  if Exec(ExpandConstant('{#UtilDir}\replace.exe'), params, ExpandConstant('{#UtilDir}'), SW_SHOW,
+     ewWaitUntilTerminated, ResultCode) then
+  begin
+    if ResultCode = 0 then
+    begin
+      result:=true;
+    end else
+    begin
+      if ResultCode = 1 then
+      begin
+        result:=false;
+        MsgBox( FmtMessage(CustomMessage('NoStringToReplace'), [filename,strfrom]), mbError, MB_OK );
+      end else
+      begin
+        if ResultCode = -1 then
+        begin
+          result:=false;
+          MsgBox( FmtMessage(CustomMessage('BadReplaceCmdLine'), [params]), mbError, MB_OK );
+        end else
+        begin
+          result:=false;
+        end
+      end
+    end
+  end
+  else begin
 		result:=false;
-		MsgBox( FmtMessage(CustomMessage('NoLoadFile'), [filename]), mbError, MB_OK );
-	end;
+		MsgBox( FmtMessage(CustomMessage('RepalceFailed'), [SysErrorMessage(ResultCode)]), mbError, MB_OK );
+  end;
+
+  if result=false then
+  begin
+    MsgBox( FmtMessage(CustomMessage('NoModifyConfig'), [filename]), mbError, MB_OK );
+  end
 end;
 
 // изменение файлов конфигурации, если было задано другое имя сервера
@@ -283,6 +296,12 @@ begin
 		// Исправление имени сервера в конфигурации
 		// Результат не проверяем, т.к. при переустановках ни одной замены
 		// в однажды исправленом файле - это нормальная ситуация
+
+    // защита от возможного обратного слэша в конце, если вдруг
+    // появится, изгадит всю малину, притащив за собой
+    // кавыку " из командной строки
+    StringChangeEx(FotoFolderName, '\', '/', True);
+
 		ReplaceInFile(configfile, '{#DefaultFotoFolderName}', FotoFolderName);
 	end;
 end;
@@ -295,8 +314,6 @@ end;
 // Действия после установки
 procedure PostInstall();
 begin
-	// Создать виртуальный каталог IIS для сайта
-	CreateFotoSiteVirtualDir();
 end;
 
 // Действия перед деинсталляцией
