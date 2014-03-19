@@ -25,6 +25,7 @@ Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
 SetupLogging =yes
+DisableFinishedPage=True
 
 [Languages]
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
@@ -393,5 +394,25 @@ end;
 function NextButtonClick(CurPageID: Integer): Boolean;
 begin
 	result := true;
+end;
+
+// Дописываем свою инфу на страницу готовности к установке
+function UpdateReadyMemo(Space, NewLine, MemoUserInfoInfo, MemoDirInfo, MemoTypeInfo,
+  MemoComponentsInfo, MemoGroupInfo, MemoTasksInfo: String): String;
+var
+  S: String;
+begin
+  S := MemoDirInfo + NewLine;
+  S := S + NewLine;
+
+  S := S + 'Имя сайта:' + NewLine;
+  S := S + Space + WebSiteNamePage.Values[0] + NewLine;
+  S := S + NewLine;
+  
+  S := S + 'Каталог с фотографиями:' + NewLine + Space;
+  S := S + Space + FotoFolderNamePage.Values[0] + NewLine;
+  S := S + NewLine;
+
+  Result := S;
 end;
 
