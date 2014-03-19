@@ -32,13 +32,6 @@ Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
 
 [Dirs]
 Name: c:\logs; Permissions: everyone-full; Flags: uninsneveruninstall
-Name: {#WebDir}\bin
-Name: {#WebDir}\Account
-Name: {#WebDir}\App_Data
-Name: {#WebDir}\Content\themes\base\images
-Name: {#WebDir}\Content\themes\base\minified\images
-Name: {#WebDir}\Images
-Name: {#WebDir}\Scripts\WebForms\MSAjax
 
 [Icons]
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: {sys}\shell32.dll; IconIndex: 32
@@ -65,15 +58,15 @@ Name: {app}; Type: dirifempty
 ; Утилитка для замен текста в файлах
 Source: ".\util\replace.exe"; DestDir: "{#UtilDir}"; Flags: ignoreversion
 ; Где recursesubdirs - обшариваются все каталоги
-Source: "..\FotoSite\bin\*.dll"; DestDir: "{#WebDir}\bin"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\FotoSite\*.ico"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\FotoSite\*.aspx"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\FotoSite\*.ascx"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\FotoSite\*.asax"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\FotoSite\*.Master"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\FotoSite\*.css"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\FotoSite\*.png"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\FotoSite\*.js"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\FotoSite\bin\*.dll"; DestDir: "{#WebDir}\bin"; Flags: ignoreversion recursesubdirs 
+Source: "..\FotoSite\*.ico"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs 
+Source: "..\FotoSite\*.aspx"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs 
+Source: "..\FotoSite\*.ascx"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs 
+Source: "..\FotoSite\*.asax"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs 
+Source: "..\FotoSite\*.Master"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs 
+Source: "..\FotoSite\*.css"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs 
+Source: "..\FotoSite\*.png"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs 
+Source: "..\FotoSite\*.js"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs 
 ; Web.config-ов два, а менять параметр нужно только в одном
 Source: "..\FotoSite\Web.config"; DestDir: "{#WebDir}"; Flags: ignoreversion; AfterInstall: ModifyConfig('{#WebDir}\Web.config')
 Source: "..\FotoSite\Account\Web.config"; DestDir: "{#WebDir}\Account"; Flags: ignoreversion
@@ -411,7 +404,7 @@ begin
   S := S + Space + WebSiteNamePage.Values[0] + NewLine;
   S := S + NewLine;
   
-  S := S + 'Каталог с фотографиями:' + NewLine + Space;
+  S := S + 'Каталог с фотографиями:' + NewLine;
   S := S + Space + FotoFolderNamePage.Values[0] + NewLine;
   S := S + NewLine;
 
