@@ -198,6 +198,8 @@ begin
 			VDir.SetInfo();
 
 			// открываем сайт в браузере
+      // но сначала выждем пару секунд, а то IIS не успевает
+      Sleep(2000);
 			ShellExec( 'open', 'http://' + IISServerName + '/' + WebSiteName + '/', '', '', SW_SHOW, ewNoWait, ErrorCode );
 			Success:=true;
 		except
