@@ -56,7 +56,7 @@ Name: {app}; Type: dirifempty
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 ; Утилитка для замен текста в файлах
-Source: ".\util\replace.exe"; DestDir: "{#UtilDir}"; Flags: ignoreversion
+Source: ".\util\*.*"; DestDir: "{#UtilDir}"; Flags: ignoreversion recursesubdirs
 ; Где recursesubdirs - обшариваются все каталоги
 Source: "..\FotoSite\bin\*.dll"; DestDir: "{#WebDir}\bin"; Flags: ignoreversion recursesubdirs 
 Source: "..\FotoSite\*.ico"; DestDir: "{#WebDir}"; Flags: ignoreversion recursesubdirs 
@@ -283,7 +283,7 @@ begin
   end
 end;
 
-// изменение файлов конфигурации, если было задано другое имя сервера
+// изменение файлов конфигурации, если было задано другое имя папки с фотографиями
 procedure ModifyConfig(const configfile:string);
 begin
 	configfile:=ExpandConstant(configfile);
