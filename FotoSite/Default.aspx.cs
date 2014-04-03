@@ -26,31 +26,6 @@ namespace FotoSite
 			}
 		}
 
-		void FillForCurrentFolder()
-		{
-			FillFoldersList();
-
-			FillImagesList();
-		}
-
-		void FillFoldersList()
-		{
-			try
-			{
-				Helper.Log.InfoFormat("[{0}] Перезагружаем список каталогов '{1}' ", Context.Request.UserHostAddress, CurrentPathLabel.Text );
-
-				FoldersListRepeater.DataBind();
-			}
-			catch (Exception ex)
-			{
-				Helper.Log.ErrorFormat("[{0}] {1} при получении списка каталогов '{2}' ", Context.Request.UserHostAddress, ex.GetMessages(), CurrentPathLabel.Text);
-			}
-		}
-
-		void FillImagesList()
-		{
-		}
-
 		protected void OpenFolderBtn_Click(object sender, EventArgs e)
 		{
 			string nextFolder = ((Button)sender).Text;
@@ -63,8 +38,6 @@ namespace FotoSite
 				Helper.Log.InfoFormat("[{0}] Переходим к {1} ", Context.Request.UserHostAddress, nextFolder );
 
 				CurrentPathLabel.Text = nextPath;
-
-				FillForCurrentFolder();
 			}
 		}
 	}
