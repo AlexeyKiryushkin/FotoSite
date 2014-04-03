@@ -19,6 +19,8 @@ namespace FotoSite
 			RelativeName = rooturi.MakeRelativeUri(new Uri(fullpath, UriKind.Absolute)).ToString();
 			ImageName = Path.GetFileNameWithoutExtension(fullpath);
 
+			Helper.Log.Debug(ImageName);
+
 			//var exiftool = new Process();
 			//exiftool.StartInfo.FileName = Settings.Default.ExifToolCmd;
 			//exiftool.StartInfo.Arguments = Settings.Default.ExifToolArgs + " \"" + fullpath + "\"";
