@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Text;
 
 using AmsDispatch.Util;
@@ -71,22 +72,31 @@ namespace FotoSite
 		{
 			Helper.Log.InfoFormat("Получаем список фоток в {0}", currPath);
 
-			try
+			List<ImageInfo> imagelist = new List<ImageInfo>();
+
+			// Uri считает каталогом только то, что заканчивается слэшем!
+			Uri rootUri = new Uri(Util.AddBackSlash(Settings.Default.FotoFolder), UriKind.Absolute);
+
+			string[] imagefiles = Directory.GetFiles(currPath, "*.jpg");
+
+			var tasks = imagefiles.Select<string, Task>(async s => 
 			{
-				// Uri считает каталогом только то, что заканчивается слэшем!
-				Uri rootUri = new Uri(Util.AddBackSlash(Settings.Default.FotoFolder), UriKind.Absolute);
+				try
+				{
+					ImageInfo imginfo = await Task.Run(() => new ImageInfo(rootUri, s));
 
-				List<ImageInfo> imagelist = Directory.GetFiles(currPath, "*.jpg")
-					.Select(s => new ImageInfo(rootUri, s)).ToList();
+					lock (imagelist)
+						imagelist.Add(imginfo);
+				}
+				catch (Exception ex)
+				{
+					Helper.Log.Error("Получение информации о {0}: ", ex);
+				}
+			}).ToArray();
 
-				return imagelist;
-			}
-			catch (Exception ex)
-			{
-				Helper.Log.ErrorFormat("{0} при получении списка фоток в {1}", ex.GetMessages(), currPath);
+			Task.WaitAll(tasks);
 
-				return new List<ImageInfo>();
-			}
+			return imagelist;
 		}
 	}
 }
