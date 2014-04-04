@@ -75,7 +75,7 @@ namespace FotoSite
 			{
 				ExifInfo = e.Data;
 
-				Helper.Log.DebugFormat("{0} EXIF: {1}", ImageName, ExifInfo);
+				//Helper.Log.DebugFormat("{0} EXIF: {1}", ImageName, ExifInfo);
 			}
 		}
 	}
@@ -84,7 +84,7 @@ namespace FotoSite
 	{
 		public List<ImageInfo> GetImages(string currPath, bool showExif)
 		{
-			Helper.Log.InfoFormat("Получаем список фоток в {0}", currPath);
+			Helper.Log.InfoFormat("Получаем список фоток в {0}, showExif={1}", currPath, showExif);
 
 			List<ImageInfo> imagelist = new List<ImageInfo>();
 
