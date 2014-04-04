@@ -3,6 +3,7 @@
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
 		<section class="featured">
         <div class="content-wrapper">
+        		<asp:CheckBox ID="ShowExifCheckBox" runat="server" Text="Показывать для каждой информации информацию EXIF (замедление!)" AutoPostBack="true" OnCheckedChanged="ShowExifCheckBox_CheckedChanged" />
         </div>
     </section>
 </asp:Content>
@@ -64,6 +65,7 @@
     SelectMethod="GetImages"> 
 		<SelectParameters>
 			<asp:ControlParameter ControlID="CurrentPathLabel" DefaultValue="" Name="currPath" PropertyName="Text" Type="String" ConvertEmptyStringToNull="False" />
+			<asp:ControlParameter ControlID="FeaturedContent$ShowExifCheckBox" DefaultValue="false" Name="showExif" Type="Boolean" />
 		</SelectParameters>
   </asp:ObjectDataSource>
 

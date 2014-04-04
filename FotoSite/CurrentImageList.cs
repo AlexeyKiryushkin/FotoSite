@@ -82,7 +82,7 @@ namespace FotoSite
 
 	public class CurrentImageList
 	{
-		public List<ImageInfo> GetImages(string currPath)
+		public List<ImageInfo> GetImages(string currPath, bool showExif)
 		{
 			Helper.Log.InfoFormat("Получаем список фоток в {0}", currPath);
 
@@ -95,7 +95,7 @@ namespace FotoSite
 			{
 				try
 				{
-					ImageInfo imginfo = await GetImageInfoAsync(rootUri, s).ConfigureAwait(false); 
+					ImageInfo imginfo = await GetImageInfoAsync(rootUri, s, showExif).ConfigureAwait(false); 
 
 					lock (imagelist)
 						imagelist.Add(imginfo);
@@ -113,17 +113,19 @@ namespace FotoSite
 			return imagelist;
 		}
 
-		private ImageInfo GetImageInfo(Uri rootUri, string fullpath)
+		private ImageInfo GetImageInfo(Uri rootUri, string fullpath, bool showExif)
 		{
 			ImageInfo imginfo = new ImageInfo(rootUri, fullpath);
-			imginfo.GetExifInfo(fullpath);
+
+			if( showExif )
+				imginfo.GetExifInfo(fullpath);
 
 			return imginfo;
 		}
 
-		private async Task<ImageInfo> GetImageInfoAsync(Uri rootUri, string fullpath)
+		private async Task<ImageInfo> GetImageInfoAsync(Uri rootUri, string fullpath, bool showExif)
 		{
-			return await Task.Factory.StartNew(() => GetImageInfo(rootUri, fullpath)).ConfigureAwait(false);
+			return await Task.Factory.StartNew(() => GetImageInfo(rootUri, fullpath, showExif)).ConfigureAwait(false);
 		}
 	}
 }

@@ -13,6 +13,15 @@ namespace FotoSite {
     public partial class _Default {
         
         /// <summary>
+        /// ShowExifCheckBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowExifCheckBox;
+        
+        /// <summary>
         /// CurrentPathLabel control.
         /// </summary>
         /// <remarks>

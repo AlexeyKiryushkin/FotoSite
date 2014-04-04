@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
@@ -23,7 +24,25 @@ namespace FotoSite
 			{
 				Helper.Log.InfoFormat("[{0}] подключение", Context.Request.UserHostAddress);
 				CurrentPathLabel.Text = Path.GetFullPath(Settings.Default.FotoFolder);
+
+				HttpCookie siteCookie = GetCookies();
+				ShowExifCheckBox.Checked = Convert.ToBoolean(siteCookie["ShowExif"]); 
 			}
+		}
+
+		private HttpCookie GetCookies()
+		{
+			HttpCookie siteCookie = Request.Cookies["FotoSite_cookies"];
+
+			if (siteCookie == null)
+			{
+				siteCookie = new HttpCookie("FotoSite_cookies");
+				siteCookie["ShowExif"] = Settings.Default.ShowExif.ToString();
+				siteCookie.Expires = DateTime.Now.AddMonths(1);
+				Response.Cookies.Add(siteCookie);
+			}
+
+			return siteCookie;
 		}
 
 		protected void OpenFolderBtn_Click(object sender, EventArgs e)
@@ -39,6 +58,14 @@ namespace FotoSite
 
 				CurrentPathLabel.Text = nextPath;
 			}
+		}
+
+		protected void ShowExifCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			HttpCookie siteCookie = GetCookies();
+			siteCookie["ShowExif"] = ShowExifCheckBox.Checked.ToString();
+			siteCookie.Expires = DateTime.Now.AddMonths(1);
+			Response.Cookies.Add(siteCookie);
 		}
 	}
 }
