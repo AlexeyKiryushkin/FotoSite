@@ -52,7 +52,7 @@ namespace FotoSite.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("6000")]
         public int ExifToolTimeoutMilliSec {
             get {
                 return ((int)(this["ExifToolTimeoutMilliSec"]));

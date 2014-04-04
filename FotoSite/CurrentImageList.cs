@@ -20,13 +20,13 @@ namespace FotoSite
 			RelativeName = rooturi.MakeRelativeUri(new Uri(fullpath, UriKind.Absolute)).ToString();
 			ImageName = Path.GetFileNameWithoutExtension(fullpath);
 
-			GetExifInfo(fullpath);
+			//GetExifInfo(fullpath);
 
 			//Helper.Log.DebugFormat("Готово. {0}: {1}", ImageName, ExifInfo);
 			//Конструктор завершается раньше, чем заполняется ExifInfo в exiftool_OutputDataReceived
 		}
 
-		private void GetExifInfo(string fullpath)
+		public void GetExifInfo(string fullpath)
 		{
 			var exiftool = new Process();
 			exiftool.StartInfo.FileName = Settings.Default.ExifToolCmd;
@@ -91,7 +91,7 @@ namespace FotoSite
 			{
 				try
 				{
-					ImageInfo imginfo = await Task.Factory.StartNew(() => new ImageInfo(rootUri, s)).ConfigureAwait(false);
+					ImageInfo imginfo = await Task.Factory.StartNew(() => GetImageInfo(rootUri, s)).ConfigureAwait(false);
 
 					lock (imagelist)
 						imagelist.Add(imginfo);
@@ -107,6 +107,14 @@ namespace FotoSite
 			Helper.Log.DebugFormat("Закончено, всего {0}", imagelist.Count);
 
 			return imagelist;
+		}
+
+		private ImageInfo GetImageInfo(Uri rootUri, string fullpath)
+		{
+			ImageInfo imginfo = new ImageInfo(rootUri, fullpath);
+			imginfo.GetExifInfo(fullpath);
+
+			return imginfo;
 		}
 	}
 }
