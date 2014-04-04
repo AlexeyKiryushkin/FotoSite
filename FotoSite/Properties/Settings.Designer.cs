@@ -25,15 +25,6 @@ namespace FotoSite.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Администратор\\Documents\\Мои рисунки\\foto\\")]
-        public string FotoFolder {
-            get {
-                return ((string)(this["FotoFolder"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.252")]
         public string ProxyIP {
             get {
@@ -52,7 +43,7 @@ namespace FotoSite.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-p C:\\UTIL\\_FOTO\\ExifTool\\exiftool.fmt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-m -p C:\\UTIL\\_FOTO\\ExifTool\\exiftool.fmt")]
         public string ExifToolArgs {
             get {
                 return ((string)(this["ExifToolArgs"]));
@@ -61,10 +52,19 @@ namespace FotoSite.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
         public int ExifToolTimeoutMilliSec {
             get {
                 return ((int)(this["ExifToolTimeoutMilliSec"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Администратор\\Documents\\Мои рисунки\\foto")]
+        public string FotoFolder {
+            get {
+                return ((string)(this["FotoFolder"]));
             }
         }
     }
