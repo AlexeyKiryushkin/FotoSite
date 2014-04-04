@@ -39,7 +39,7 @@
 					<div style="padding: 2px;">
 						<a href="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=4000"><img src="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=200" /></a>
 					</div>
-					<div style="padding: 2px; text-align: center;">
+					<div style="padding: 2px; text-align: center; font-size: large;">
 						<asp:Label ID="ImageNameLabel" runat="server" Text='<%# Eval("ImageName") %>' />
 					</div>
 					<div style="padding: 1px; text-align: center; font-size: small;">

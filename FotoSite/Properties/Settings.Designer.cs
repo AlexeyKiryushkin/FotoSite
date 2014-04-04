@@ -67,5 +67,14 @@ namespace FotoSite.Properties {
                 return ((string)(this["FotoFolder"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowExif {
+            get {
+                return ((bool)(this["ShowExif"]));
+            }
+        }
     }
 }

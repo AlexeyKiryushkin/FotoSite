@@ -17,5 +17,8 @@
     <Setting Name="FotoFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\Users\Администратор\Documents\Мои рисунки\foto</Value>
     </Setting>
+    <Setting Name="ShowExif" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
