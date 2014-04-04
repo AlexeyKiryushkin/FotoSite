@@ -3,7 +3,7 @@
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
 		<section class="featured">
         <div class="content-wrapper">
-        		<asp:CheckBox ID="ShowExifCheckBox" runat="server" Text="Показывать для каждой информации информацию EXIF (замедление!)" AutoPostBack="true" OnCheckedChanged="ShowExifCheckBox_CheckedChanged" />
+        		<asp:CheckBox ID="ShowExifCheckBox" runat="server" Text="Показывать для каждой фотографии информацию EXIF (замедление!)" AutoPostBack="true" OnCheckedChanged="ShowExifCheckBox_CheckedChanged" />
         </div>
     </section>
 </asp:Content>
