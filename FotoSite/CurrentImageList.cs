@@ -77,13 +77,11 @@ namespace FotoSite
 			// Uri считает каталогом только то, что заканчивается слэшем!
 			Uri rootUri = new Uri(Util.AddBackSlash(Settings.Default.FotoFolder), UriKind.Absolute);
 
-			string[] imagefiles = Directory.GetFiles(currPath, "*.jpg");
-
-			var tasks = imagefiles.Select<string, Task>(async s => 
+			var tasks = Directory.GetFiles(currPath, "*.jpg").Select<string, Task>(async s => 
 			{
 				try
 				{
-					ImageInfo imginfo = await Task.Run(() => new ImageInfo(rootUri, s));
+					ImageInfo imginfo = await Task.Factory.StartNew(() => new ImageInfo(rootUri, s)).ConfigureAwait(false);
 
 					lock (imagelist)
 						imagelist.Add(imginfo);
@@ -95,6 +93,8 @@ namespace FotoSite
 			}).ToArray();
 
 			Task.WaitAll(tasks);
+
+			Helper.Log.DebugFormat("Закончено, всего {0}", imagelist.Count);
 
 			return imagelist;
 		}
