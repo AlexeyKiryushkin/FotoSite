@@ -12,7 +12,7 @@
       <Value Profile="(Default)">-m -p C:\UTIL\_FOTO\ExifTool\exiftool.fmt</Value>
     </Setting>
     <Setting Name="ExifToolTimeoutMilliSec" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">6000</Value>
+      <Value Profile="(Default)">10000</Value>
     </Setting>
     <Setting Name="FotoFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\Users\Администратор\Documents\Мои рисунки\foto</Value>

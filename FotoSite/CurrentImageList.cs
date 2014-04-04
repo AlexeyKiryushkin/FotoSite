@@ -91,7 +91,7 @@ namespace FotoSite
 			{
 				try
 				{
-					ImageInfo imginfo = await Task.Factory.StartNew(() => GetImageInfo(rootUri, s)).ConfigureAwait(false);
+					ImageInfo imginfo = await GetImageInfoAsync(rootUri, s).ConfigureAwait(false); 
 
 					lock (imagelist)
 						imagelist.Add(imginfo);
@@ -115,6 +115,11 @@ namespace FotoSite
 			imginfo.GetExifInfo(fullpath);
 
 			return imginfo;
+		}
+
+		private async Task<ImageInfo> GetImageInfoAsync(Uri rootUri, string fullpath)
+		{
+			return await Task.Factory.StartNew(() => GetImageInfo(rootUri, fullpath)).ConfigureAwait(false);
 		}
 	}
 }
