@@ -48,8 +48,12 @@ namespace FotoSite
 
 			if (!exiftool.WaitForExit(Settings.Default.ExifToolTimeoutMilliSec))
 			{
-				exiftool.Kill();
-				Helper.Log.ErrorFormat("{0} : Превышен таймаут ожидания работы ExifTool - {1} сек!", ImageName, Settings.Default.ExifToolTimeoutMilliSec);
+				//exiftool.Kill();
+				//Просто Kill() не подходит, exiftool порождает дочерние exiftool и они висят после убийства родителя :(
+				//Надо убивать родителя и всех детей
+				Helper.Log.ErrorFormat("{0} : Превышен таймаут ожидания работы ExifTool - {1} сек! Принудительно завершаем процесс {2}",
+					ImageName, Settings.Default.ExifToolTimeoutMilliSec, exiftool.Id);
+				Util.KillProcessAndChildren(exiftool.Id);
 			}
 		}
 
