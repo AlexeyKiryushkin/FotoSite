@@ -1,0 +1,1 @@
+$make $model<br/>$focallength, f/$Aperture, ${ShutterSpeed}s, ISO $EXIF:ISO
