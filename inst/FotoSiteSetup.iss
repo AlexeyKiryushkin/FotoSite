@@ -55,7 +55,7 @@ Name: {app}; Type: dirifempty
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-; Утилитка для замен текста в файлах
+; Утилитки для замен текста в файлах и выдирания Exif
 Source: ".\util\*.*"; DestDir: "{#UtilDir}"; Flags: ignoreversion recursesubdirs
 ; Где recursesubdirs - обшариваются все каталоги
 Source: "..\FotoSite\bin\*.dll"; DestDir: "{#WebDir}\bin"; Flags: ignoreversion recursesubdirs 
@@ -247,7 +247,7 @@ begin
   params := '"' + filename + '" "' + strfrom + '" "' + strto + '"';
   Log('params: ' + params);
 
-  if Exec(ExpandConstant('{#UtilDir}\replace.exe'), params, ExpandConstant('{#UtilDir}'), SW_SHOW,
+  if Exec(ExpandConstant('{#UtilDir}\Replace\replace.exe'), params, ExpandConstant('{#UtilDir}\Replace'), SW_SHOW,
      ewWaitUntilTerminated, ResultCode) then
   begin
     if ResultCode = 0 then
@@ -302,6 +302,9 @@ begin
 
 		ReplaceInFile(configfile, '{#DefaultFotoFolderName}', FotoFolderName);
 	end;
+
+  // И путь к ExifTool
+	ReplaceInFile(configfile, 'C:\UTIL\_FOTO\ExifTool', ExpandConstant('{#UtilDir}\ExifTool'));
 end;
 
 // Действия перед установкой
