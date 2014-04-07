@@ -1,1 +1,1 @@
-$make $model<br/>$focallength, f/$Aperture, ${ShutterSpeed}s, ISO $EXIF:ISO
+$make $model<br/>$focallength ($FocalLengthIn35mmFormat), f/$Aperture, ${ShutterSpeed}s, ISO $EXIF:ISO
