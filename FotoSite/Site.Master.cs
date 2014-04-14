@@ -6,6 +6,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Reflection;
+using System.IO;
 
 namespace FotoSite
 {
@@ -71,6 +72,16 @@ namespace FotoSite
 
 		}
 
-		public string SiteVersion { get { return string.Format("v.{0}", Assembly.GetExecutingAssembly().GetName().Version); } }
+		/// <summary>
+		/// Информация о версии ПО
+		/// </summary>
+		public string SiteVersion
+		{
+			get
+			{
+				return string.Format("v.{0} от {1}",
+					Assembly.GetExecutingAssembly().GetName().Version, new FileInfo(Assembly.GetExecutingAssembly().CodeBase.Substring(8)).LastWriteTime);
+			}
+		}
 	}
 }
