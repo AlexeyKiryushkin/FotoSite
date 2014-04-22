@@ -63,7 +63,8 @@
     <footer>
         <div class="content-wrapper">
             <div class="float-left">
-                <p>&copy; <%: DateTime.Now.Year %> - FotoSite&nbsp;&nbsp;<%: SiteVersion %></p>
+                <p>&copy; <%: DateTime.Now.Year %> - FotoSite&nbsp;&nbsp;<%: SiteVersion %>, 
+									<a href="http://www.sno.phy.queensu.ca/~phil/exiftool/">ExifTool</a>&nbsp;<%: ExifToolVersion %></p>
             </div>
         </div>
     </footer>

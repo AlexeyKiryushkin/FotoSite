@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Reflection;
 using System.IO;
+using System.Diagnostics;
+using System.Text;
+
+using FotoSite.Properties;
 
 namespace FotoSite
 {
@@ -69,7 +70,36 @@ namespace FotoSite
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+				GetExifToolVersion();
+		}
 
+		private void GetExifToolVersion()
+		{
+			var exiftool = new Process();
+			exiftool.StartInfo.FileName = Settings.Default.ExifToolCmd;
+			exiftool.StartInfo.Arguments = "-ver";
+			exiftool.StartInfo.UseShellExecute = false;	 // Значение свойства UseShellExecute должно быть равным false, если свойству RedirectStandardOutput нужно присвоить значение true
+			exiftool.StartInfo.RedirectStandardOutput = true;
+			exiftool.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(1251);
+			exiftool.OutputDataReceived += exiftool_OutputDataReceived;
+			exiftool.Start();
+
+			exiftool.BeginOutputReadLine();
+
+			if (!exiftool.WaitForExit(Settings.Default.ExifToolTimeoutMilliSec))
+			{
+				Util.KillProcessAndChildren(exiftool.Id);
+			}
+		}
+
+		string _exifToolVersion = "";
+
+		void exiftool_OutputDataReceived(object sender, DataReceivedEventArgs e)
+		{
+			if (!string.IsNullOrEmpty(e.Data))
+			{
+				_exifToolVersion = e.Data;
+			}
 		}
 
 		/// <summary>
@@ -81,6 +111,17 @@ namespace FotoSite
 			{
 				return string.Format("v.{0} от {1}",
 					Assembly.GetExecutingAssembly().GetName().Version, new FileInfo(Assembly.GetExecutingAssembly().CodeBase.Substring(8)).LastWriteTime);
+			}
+		}
+
+		/// <summary>
+		/// Информация о версии ExifTool
+		/// </summary>
+		public string ExifToolVersion
+		{
+			get
+			{
+				return string.Format("v.{0}",_exifToolVersion);
 			}
 		}
 	}

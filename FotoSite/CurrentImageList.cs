@@ -31,7 +31,7 @@ namespace FotoSite
 			var exiftool = new Process();
 			exiftool.StartInfo.FileName = Settings.Default.ExifToolCmd;
 			exiftool.StartInfo.Arguments = Settings.Default.ExifToolArgs + " \"" + fullpath + "\"";
-			exiftool.StartInfo.UseShellExecute = false;
+			exiftool.StartInfo.UseShellExecute = false;	 // Значение свойства UseShellExecute должно быть равным false, если свойству RedirectStandardOutput нужно присвоить значение true
 			exiftool.StartInfo.RedirectStandardOutput = true;
 			exiftool.StartInfo.RedirectStandardError = true;
 			exiftool.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(1251);
