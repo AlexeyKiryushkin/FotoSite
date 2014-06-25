@@ -41,9 +41,9 @@
     <Reference Include="AmsDispatch.Util">
       <HintPath>..\External\AmsDispatch.Util.dll</HintPath>
     </Reference>
-    <Reference Include="AspNet.ScriptManager.jQuery, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AspNet.ScriptManager.jQuery, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AspNet.ScriptManager.jQuery.2.1.0\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.2.1.1\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
     </Reference>
     <Reference Include="AspNet.ScriptManager.jQuery.UI.Combined, Version=1.10.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -225,9 +225,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </Content>
-    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.0.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.js" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -260,7 +260,7 @@
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jquery-2.1.0.min.map" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\_references.js" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
