@@ -58,6 +58,51 @@ namespace FotoSite {
         protected global::System.Web.UI.WebControls.Repeater ImagesListRepeater;
         
         /// <summary>
+        /// HeaderExifPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel HeaderExifPanel;
+        
+        /// <summary>
+        /// ShowHideImageBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ShowHideImageBtn;
+        
+        /// <summary>
+        /// ExpandedExifPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel ExpandedExifPanel;
+        
+        /// <summary>
+        /// ExifInfoLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ExifInfoLabel;
+        
+        /// <summary>
+        /// CollapsibleExifPanelExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CollapsiblePanelExtender CollapsibleExifPanelExtender;
+        
+        /// <summary>
         /// FolderListDataSource control.
         /// </summary>
         /// <remarks>

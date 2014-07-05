@@ -1,5 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="FotoSite.SiteMaster" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxCtrl" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
@@ -15,7 +17,7 @@
 </head>
 <body>
     <form runat="server">
-    <asp:ScriptManager runat="server">
+    <ajaxCtrl:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnableScriptGlobalization="True" EnableScriptLocalization="True"/>
         <Scripts>
             <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=272931&clcid=0x409 --%>
             <%--Framework Scripts--%>

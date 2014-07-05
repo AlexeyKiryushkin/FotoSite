@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="FotoSite._Default" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxCtrl" %>
+
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
 		<section class="featured">
         <div class="content-wrapper">
@@ -51,6 +53,31 @@
 
 		</asp:Repeater>
 	</div>
+
+	<div style="clear:both">
+	</div>
+
+	<div style="padding: 1px; text-align: center; font-size: small;">
+
+		<asp:Panel ID="HeaderExifPanel" runat="server" Height="30px" CssClass="collapsePanelHeader">
+
+				<asp:ImageButton ID="ShowHideImageBtn" runat="server" ImageUrl="~/images/expand.jpg" AlternateText="(Показать Exif...)" />
+				Показать EXIF...
+			
+		</asp:Panel>
+
+		<asp:Panel ID="ExpandedExifPanel" runat="server" CssClass="collapsePanel">
+			<asp:Label ID="ExifInfoLabel" runat="server" Text="exif info" />
+		</asp:Panel>
+
+	</div>
+
+	<ajaxCtrl:CollapsiblePanelExtender ID="CollapsibleExifPanelExtender" runat="server" 
+		TargetControlID="ExpandedExifPanel"
+		ExpandControlID="HeaderExifPanel" 
+		CollapseControlID="HeaderExifPanel" 
+		ImageControlID="ShowHideImageBtn" 
+		Collapsed="True" />
 
   <asp:ObjectDataSource ID="FolderListDataSource" runat="server" 
     TypeName="FotoSite.CurrentFolderList" 

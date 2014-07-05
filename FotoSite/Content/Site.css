@@ -743,3 +743,40 @@ tr.pager td {
 	width: 90%;
 }
 
+.collapsePanel
+{
+  overflow: hidden;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.collapsePanelHeader
+{
+  width: 1250px;
+  height: 30px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.collapsePanel
+{
+  background-color: white;
+}
+
+.collapsePanelHeader
+{
+  background-image: url(images/bg-menu-main.png);
+  background-repeat: repeat-x;
+  color: #FFFFFF;
+}
+
+#master_content .collapsePanelHeader a
+{
+  color: #FFFFFF;
+}
+#master_content .collapsePanelHeader a:hover
+{
+  text-decoration: none;
+  background: none;
+}
+
