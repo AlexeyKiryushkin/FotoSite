@@ -55,7 +55,7 @@
 					<div style="padding: 1px; text-align: center; font-size: small;">
 	
 						<asp:Panel ID="ExpandedExifPanel" runat="server" CssClass="collapsePanel">
-							<asp:Label ID="ExifInfoLabel" runat="server" Text='<%# Eval("ExifInfo") %>' />
+							<asp:Label ID="ExifInfoLabel" runat="server" Text='<%# Eval("ExifInfoDebug") %>' />
 						</asp:Panel>
 
 					</div>
@@ -64,7 +64,7 @@
 
 				<ajaxCtrl:CollapsiblePanelExtender ID="CollapsibleExifPanelExtender" runat="server" 
 					TargetControlID="ExpandedExifPanel"	ExpandControlID="HeaderExifPanel" CollapseControlID="HeaderExifPanel" 
-					Collapsed="True" />
+					Collapsed="False" />
 
 			</ItemTemplate>
 

@@ -61,6 +61,16 @@ namespace FotoSite
 		public string ImageName { get; set; }
 		public string ExifInfo { get; set; }
 
+		public string ExifInfoDebug
+		{
+			get
+			{
+				Helper.Log.DebugFormat("{0}: Вывод Exifinfo на страницу - {1}", ImageName, ExifInfo);
+
+				return ExifInfo;
+			}
+		}
+
 		void exiftool_ErrorDataReceived(object sender, DataReceivedEventArgs e)
 		{
 			if (!string.IsNullOrEmpty(e.Data))
