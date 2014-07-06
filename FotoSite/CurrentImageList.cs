@@ -75,7 +75,7 @@ namespace FotoSite
 			{
 				ExifInfo = e.Data;
 
-				//Helper.Log.DebugFormat("{0} EXIF: {1}", ImageName, ExifInfo);
+				Helper.Log.DebugFormat("{0} EXIF: {1}", ImageName, ExifInfo);
 			}
 		}
 	}

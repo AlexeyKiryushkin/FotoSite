@@ -39,16 +39,33 @@
       
 			<ItemTemplate>
 				<div style="padding: 2px; float:left;">
+
 					<div style="padding: 2px;">
-						<a href="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=4000"><img src="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=200" /></a>
+						<a href="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=4000" title="Открыть оригинал..."><img src="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=200" /></a>
 					</div>
+
 					<div style="padding: 2px; text-align: center; font-size: large;">
-						<asp:Label ID="ImageNameLabel" runat="server" Text='<%# Eval("ImageName") %>' />
+
+						<asp:Panel ID="HeaderExifPanel" runat="server" Title="Показать EXIF..." CssClass="collapsePanelHeader">
+							<asp:Label ID="ImageNameLabel" runat="server" Text='<%# Eval("ImageName") %>' />
+						</asp:Panel>
+
 					</div>
+
 					<div style="padding: 1px; text-align: center; font-size: small;">
-						<asp:Label ID="ExifInfoLabel" runat="server" Text='<%# Eval("ExifInfo") %>' />
+	
+						<asp:Panel ID="ExpandedExifPanel" runat="server" CssClass="collapsePanel">
+							<asp:Label ID="ExifInfoLabel" runat="server" Text='<%# Eval("ExifInfo") %>' />
+						</asp:Panel>
+
 					</div>
+
 				</div>
+
+				<ajaxCtrl:CollapsiblePanelExtender ID="CollapsibleExifPanelExtender" runat="server" 
+					TargetControlID="ExpandedExifPanel"	ExpandControlID="HeaderExifPanel" CollapseControlID="HeaderExifPanel" 
+					Collapsed="True" />
+
 			</ItemTemplate>
 
 		</asp:Repeater>
@@ -56,28 +73,6 @@
 
 	<div style="clear:both">
 	</div>
-
-	<div style="padding: 1px; text-align: center; font-size: small;">
-
-		<asp:Panel ID="HeaderExifPanel" runat="server" Height="30px" CssClass="collapsePanelHeader">
-
-				<asp:ImageButton ID="ShowHideImageBtn" runat="server" ImageUrl="~/images/expand.jpg" AlternateText="(Показать Exif...)" />
-				Показать EXIF...
-			
-		</asp:Panel>
-
-		<asp:Panel ID="ExpandedExifPanel" runat="server" CssClass="collapsePanel">
-			<asp:Label ID="ExifInfoLabel" runat="server" Text="exif info" />
-		</asp:Panel>
-
-	</div>
-
-	<ajaxCtrl:CollapsiblePanelExtender ID="CollapsibleExifPanelExtender" runat="server" 
-		TargetControlID="ExpandedExifPanel"
-		ExpandControlID="HeaderExifPanel" 
-		CollapseControlID="HeaderExifPanel" 
-		ImageControlID="ShowHideImageBtn" 
-		Collapsed="True" />
 
   <asp:ObjectDataSource ID="FolderListDataSource" runat="server" 
     TypeName="FotoSite.CurrentFolderList" 
