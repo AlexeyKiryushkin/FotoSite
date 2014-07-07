@@ -7,7 +7,7 @@
 ; а вот подкаталоги без возможности изменения
 #define WebDir "{app}\FotoSiteReally"
 #define UtilDir "{app}\util"
-#define DefaultFotoFolderName "V:\foto"
+#define DefaultFotoFolderName "c:\tmp\images"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
