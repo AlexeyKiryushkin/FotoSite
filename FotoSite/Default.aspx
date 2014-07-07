@@ -55,7 +55,7 @@
 					<div style="padding: 1px; text-align: center; font-size: small;">
 	
 						<asp:Panel ID="ExpandedExifPanel" runat="server" CssClass="collapsePanel">
-							<asp:Label ID="ExifInfoLabel" runat="server" Text='<%# Eval("ExifInfoDebug") %>' />
+							<asp:Label ID="ExifInfoLabel" runat="server" Text='<%# Eval("ExifInfo") %>' />
 						</asp:Panel>
 
 					</div>
