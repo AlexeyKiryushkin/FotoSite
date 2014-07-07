@@ -41,7 +41,7 @@
 				<div style="padding: 2px; float:left;">
 
 					<div style="padding: 2px;">
-						<a href="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=4000" title="Открыть оригинал..."><img src="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=200" /></a>
+						<a href="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=4000" title="Открыть оригинал..." target="_blank"><img src="SmallImage.axd?name=<%# Eval("RelativeName") %>&h=200" /></a>
 					</div>
 
 					<div style="padding: 2px; text-align: center; font-size: large;">
