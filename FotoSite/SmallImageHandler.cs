@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 
@@ -55,18 +56,28 @@ namespace FotoSite
 						{
 							using (Graphics g = Graphics.FromImage(smallBmp))
 							{
-								g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+								// параметры качества отсюда - http://stackoverflow.com/questions/249587/high-quality-image-scaling-library
+								g.CompositingQuality = CompositingQuality.HighQuality;
+								g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+								g.SmoothingMode = SmoothingMode.HighQuality;
+
 								g.DrawImage(bigBmp, 0, 0, smallBmp.Width, smallBmp.Height);
+
+								// JPEG codec
+								ImageCodecInfo jpegCodec = GetEncoder(ImageFormat.Jpeg);
+
+								// массив из одного параметра кодирования (качество) для передачи в Save
+								EncoderParameters encoderParams = new EncoderParameters(1);
+								// задаем максимальное качество JPEG (Обязательно 100L а не просто 100 !!!!)
+								encoderParams.Param[0] = new EncoderParameter(Encoder.Quality, 100L); ;
 
 								// В формате PNG (и еще куче других, кроме GIF и JPG) нельзя выводить
 								// непосредственно в context.Response.OutputStream, т.к. по нему
 								// можно идти только в одну сторону. Надо использовать
-								// промежуточный MemoryStream!
-
-								// Безобразие должно быть единообразным!
+								// промежуточный MemoryStream, у нас JPG, но пусть безобразие будет единообразным!
 								using (MemoryStream ms = new MemoryStream())
 								{
-									smallBmp.Save(ms, ImageFormat.Jpeg);
+									smallBmp.Save(ms, jpegCodec, encoderParams);
 									ms.WriteTo(context.Response.OutputStream);
 								}
 							}
@@ -92,5 +103,18 @@ namespace FotoSite
 		}
 
 		#endregion
+
+		private ImageCodecInfo GetEncoder(ImageFormat format)
+		{
+			ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+
+			foreach (ImageCodecInfo codec in codecs)
+			{
+				if (codec.FormatID == format.Guid)
+					return codec;
+			}
+
+			return null;
+		}
 	}
 }
