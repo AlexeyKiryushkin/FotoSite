@@ -120,6 +120,8 @@ namespace FotoSite
 
 			Helper.Log.DebugFormat("Закончено, всего {0}", imagelist.Count);
 
+			imagelist = imagelist.OrderBy(img => img.ImageName).ToList();
+
 			return imagelist;
 		}
 
