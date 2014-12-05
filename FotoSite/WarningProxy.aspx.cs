@@ -11,7 +11,7 @@ namespace FotoSite
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			// Надо показать, какой ip добавлять в список сиключений для прокси.
+			// Надо показать, какой ip добавлять в список исключений для прокси.
 			// Но, ip адресов у сервера несколько, поэтому, если обращение было
 			// по IP - показываем его, а если по имени, то показываем имя.
 			ServerIpLabel.Text = Request.Url.DnsSafeHost;

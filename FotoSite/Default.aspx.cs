@@ -14,15 +14,18 @@ namespace FotoSite
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (Context.Request.UserHostAddress == Settings.Default.ProxyIP)
-			{
-				Helper.Log.WarnFormat("[{0}] -> перенаправление на предупреждение о прокси!", Context.Request.UserHostAddress);
-				Server.Transfer("WarningProxy.aspx");
-			}
-
 			if (!IsPostBack)
 			{
-				Helper.Log.InfoFormat("[{0}] подключение", Context.Request.UserHostAddress);
+				Helper.Log.InfoFormat("[{0}] подключение...", Context.Request.UserHostAddress);
+
+				if (Context.Request.UserHostAddress == Settings.Default.ProxyIP)
+				{
+					Helper.Log.WarnFormat("[{0} ({1})] -> перенаправление на предупреждение о прокси!",
+						Context.Request.UserHostAddress, Request.ServerVariables["HTTP_X_FORWARDED_FOR"]);
+
+					Server.Transfer("WarningProxy.aspx");
+				}
+
 				CurrentPathLabel.Text = Path.GetFullPath(Settings.Default.FotoFolder);
 
 				HttpCookie siteCookie = GetCookies();
