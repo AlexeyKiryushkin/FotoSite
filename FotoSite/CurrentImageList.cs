@@ -17,6 +17,7 @@ namespace FotoSite
 	{
 		public ImageInfo(Uri rooturi, string fullpath)
 		{
+			_fullImageName = fullpath;
 			RelativeName = rooturi.MakeRelativeUri(new Uri(fullpath, UriKind.Absolute)).ToString();
 			ImageName = Path.GetFileNameWithoutExtension(fullpath);
 
@@ -60,6 +61,10 @@ namespace FotoSite
 		public string RelativeName { get; set; }
 		public string ImageName { get; set; }
 		public string ExifInfo { get; set; }
+
+		private string _fullImageName;
+
+		public string FullImageName	{	get { return _fullImageName; } }
 
 		public string ExifInfoDebug
 		{

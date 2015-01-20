@@ -35,7 +35,7 @@
 	</div>
 
 	<div>
-		<asp:Repeater ID="ImagesListRepeater" runat="server" DataSourceID="ImagesListDataSource" >
+		<asp:Repeater ID="ImagesListRepeater" runat="server" DataSourceID="ImagesListDataSource" OnItemCreated="ImagesListRepeater_ItemCreated" >
       
 			<ItemTemplate>
 				<div style="padding: 2px; float:left;">
@@ -46,10 +46,17 @@
 
 					<div style="padding: 2px; text-align: center; font-size: large;">
 
-						<asp:Panel ID="HeaderExifPanel" runat="server" Title="Показать EXIF..." CssClass="collapsePanelHeader">
-							<asp:Label ID="ImageNameLabel" runat="server" Text='<%# Eval("ImageName") %>' />
-						</asp:Panel>
-
+						<div style="float:left; width:10%">
+							<asp:CheckBox ID="CheckToDownload" runat="server" />
+							<asp:Label ID="FullImageNameLabel" runat="server" Visible="false" Text='<%# Eval("FullImageName") %>' />
+						</div>
+						<div style="float:left; text-align: center; width:90%">
+							<asp:Panel ID="HeaderExifPanel" runat="server" Title="Показать EXIF..." CssClass="collapsePanelHeader">
+								<asp:Label ID="ImageNameLabel" runat="server" Text='<%# Eval("ImageName") %>' />
+							</asp:Panel>
+						</div>
+						<div style="clear:both">
+						</div>
 					</div>
 
 					<div style="padding: 1px; text-align: center; font-size: small;">
@@ -68,11 +75,18 @@
 
 			</ItemTemplate>
 
+			<FooterTemplate>
+				<div style="clear:both">
+				</div>
+				<div>
+					<asp:Button ID="DownloadImages" runat="server" Text="Загрузить отмеченное" OnClick="DownloadImages_Click" />	
+				</div>
+			</FooterTemplate>
+	
 		</asp:Repeater>
 	</div>
 
-	<div style="clear:both">
-	</div>
+	<div id="lockPane" class="LockOff"></div>
 
   <asp:ObjectDataSource ID="FolderListDataSource" runat="server" 
     TypeName="FotoSite.CurrentFolderList" 

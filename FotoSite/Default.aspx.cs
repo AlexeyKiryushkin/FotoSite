@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using Ionic.Zip;
 
 using AmsDispatch.Util;
 
@@ -29,7 +30,7 @@ namespace FotoSite
 				CurrentPathLabel.Text = Path.GetFullPath(Settings.Default.FotoFolder);
 
 				HttpCookie siteCookie = GetCookies();
-				ShowExifCheckBox.Checked = Convert.ToBoolean(siteCookie["ShowExif"]); 
+				ShowExifCheckBox.Checked = Convert.ToBoolean(siteCookie["ShowExif"]);
 			}
 		}
 
@@ -70,5 +71,83 @@ namespace FotoSite
 			siteCookie.Expires = DateTime.Now.AddMonths(1);
 			Response.Cookies.Add(siteCookie);
 		}
+
+		protected void DownloadImages_Click(object sender, EventArgs e)
+		{
+			ZipAndSendCheckedImages();
+		}
+
+		private void ZipAndSendCheckedImages()
+		{
+			try
+			{
+				// сформировать имя zip-файла во временном каталоге сервера, оно должно быть уникально, т.к. могут обратиться несколько клиентов одновременно
+				string zipFileNameOnly = Path.GetRandomFileName();
+				string zipFileFullName = Path.GetTempPath() + zipFileNameOnly;
+
+				Helper.Log.InfoFormat("Архивируем изображения в файл '{0}' ...", zipFileFullName);
+
+				int n = 0;
+
+				// запаковать отмеченные изображения в zip
+				using (ZipFile zip = new ZipFile())
+				{
+					foreach (RepeaterItem ri in ImagesListRepeater.Items)
+					{
+						CheckBox checked4download = (CheckBox)ri.FindControl("CheckToDownload");
+						Label imageFullNameLabel = (Label)ri.FindControl("FullImageNameLabel");
+
+						if (checked4download.Checked)
+						{
+							zip.AddFile(imageFullNameLabel.Text, "");
+							n++;
+							Helper.Log.DebugFormat("{0} добавлен в архив", imageFullNameLabel.Text);
+						}
+					}
+
+					if (n > 0)
+					{
+						zip.Save(zipFileFullName);
+						Helper.Log.DebugFormat("Архив {0} сохранен.", zipFileFullName);
+					}
+				}
+
+				if( n > 0 )
+					SendZipFile(zipFileNameOnly);
+				else
+					Helper.Log.Warn("Нет отмеченных для загрузки изображений!");
+			}
+			catch (Exception ex)
+			{
+				Helper.Log.Debug("Создание архива изображений: ", ex);
+				Helper.Log.ErrorFormat("{0} при создании архива изображений", ex.GetMessages());
+			}
+		}
+
+		private void SendZipFile(string zipFileName)
+		{
+			string redirurl = string.Format("DownloadZip.axd?fname={0}&prefix=foto", zipFileName);
+			Helper.Log.InfoFormat("Перенаправление на {0} для загрузки zip-файла с изображениями...", redirurl);
+
+			// Response.Redirect(redirurl, endResponse: false);
+			// Response.Redirect не даёт нормально доработать этой странице, из-за этого не отключается блокировка UI
+			// поэтому c блокировкой перенаправление делается клиентским скриптом
+			Response.Redirect(redirurl, endResponse: false);
+			//ClientScript.RegisterStartupScript(GetType(), "downloadzip", string.Format(@"window.open('{0}', '_blank')", redirurl), true);
+		}
+
+		protected void ImagesListRepeater_ItemCreated(object sender, RepeaterItemEventArgs e)
+		{
+			if (e.Item.ItemType == ListItemType.Footer)
+			{
+				// подключаем функцию блокировки экрана на время длительной операции создания файлов с историями параметров/уставок
+				// она будет вызвана в браузере при нажатии на кнопку, а отменится при обновлении страницы
+				// по завершению длительной операции
+				//Button downloadImagesBtn = (Button)e.Item.FindControl("DownloadImages");
+				//downloadImagesBtn.Attributes["onclick"] = "LockScreen('<h1>Подготовка файлов, ожидайте...</h1>');";
+				//Helper.Log.Debug("Подключена LockScreen к DownloadImages Button");
+			}
+		}
+
 	}
 }
