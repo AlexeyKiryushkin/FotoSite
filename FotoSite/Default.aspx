@@ -86,8 +86,6 @@
 		</asp:Repeater>
 	</div>
 
-	<div id="lockPane" class="LockOff"></div>
-
   <asp:ObjectDataSource ID="FolderListDataSource" runat="server" 
     TypeName="FotoSite.CurrentFolderList" 
     SelectMethod="GetFolders"> 

@@ -82,7 +82,7 @@ namespace FotoSite
 			try
 			{
 				// сформировать имя zip-файла во временном каталоге сервера, оно должно быть уникально, т.к. могут обратиться несколько клиентов одновременно
-				string zipFileNameOnly = Path.GetRandomFileName();
+				string zipFileNameOnly = Path.ChangeExtension(Path.GetRandomFileName(), ".zip");
 				string zipFileFullName = Path.GetTempPath() + zipFileNameOnly;
 
 				Helper.Log.InfoFormat("Архивируем изображения в файл '{0}' ...", zipFileFullName);
@@ -127,12 +127,11 @@ namespace FotoSite
 		private void SendZipFile(string zipFileName)
 		{
 			string redirurl = string.Format("DownloadZip.axd?fname={0}&prefix=foto", zipFileName);
-			Helper.Log.InfoFormat("Перенаправление на {0} для загрузки zip-файла с изображениями...", redirurl);
+			//Helper.Log.InfoFormat("Перенаправление на {0} для загрузки zip-файла с изображениями...", redirurl);
 
-			// Response.Redirect(redirurl, endResponse: false);
+			Response.Redirect(redirurl, endResponse: false);
 			// Response.Redirect не даёт нормально доработать этой странице, из-за этого не отключается блокировка UI
 			// поэтому c блокировкой перенаправление делается клиентским скриптом
-			Response.Redirect(redirurl, endResponse: false);
 			//ClientScript.RegisterStartupScript(GetType(), "downloadzip", string.Format(@"window.open('{0}', '_blank')", redirurl), true);
 		}
 
@@ -144,8 +143,8 @@ namespace FotoSite
 				// она будет вызвана в браузере при нажатии на кнопку, а отменится при обновлении страницы
 				// по завершению длительной операции
 				//Button downloadImagesBtn = (Button)e.Item.FindControl("DownloadImages");
-				//downloadImagesBtn.Attributes["onclick"] = "LockScreen('<h1>Подготовка файлов, ожидайте...</h1>');";
-				//Helper.Log.Debug("Подключена LockScreen к DownloadImages Button");
+				//downloadImagesBtn.Attributes["onclick"] = "this.disabled=true;";
+				//Helper.Log.Debug("К DownloadImages Button подключен вызов блокировки экрана");
 			}
 		}
 

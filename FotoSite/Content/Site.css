@@ -750,26 +750,3 @@ tr.pager td {
 	cursor: pointer;
 }
 
-.LockOff
-{
-	display: none;
-	visibility: hidden;
-}
-
-.LockOn
-{
-	display: block;
-	visibility: visible;
-	position: absolute;
-	z-index: 999;
-	top: 0px;
-	left: 0px;
-	width: 105%;
-	height: 105%;
-	padding-top: 20%;
-	background-color: #808080;
-	filter: alpha(opacity=75);
-	opacity: 0.75;
-	text-align: center;
-} 
-
