@@ -148,5 +148,15 @@ namespace FotoSite
 			}
 		}
 
+		protected void CheckAllImages_Click(object sender, EventArgs e)
+		{
+			foreach (RepeaterItem ri in ImagesListRepeater.Items)
+			{
+				CheckBox checked4download = (CheckBox)ri.FindControl("CheckToDownload");
+
+				checked4download.Checked = true;
+			}
+		}
+
 	}
 }

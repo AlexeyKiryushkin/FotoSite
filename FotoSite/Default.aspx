@@ -78,8 +78,13 @@
 			<FooterTemplate>
 				<div style="clear:both">
 				</div>
-				<div>
-					<asp:Button ID="DownloadImages" runat="server" Text="Загрузить отмеченное" OnClick="DownloadImages_Click" />	
+				<div style="padding: 1px; float:left;">
+					<asp:Button ID="CheckAllImages" runat="server" Text="Отметить все изображения" OnClick="CheckAllImages_Click" />	
+				</div>
+				<div style="padding: 1px; float:left;">
+					<asp:Button ID="DownloadImages" runat="server" Text="Загрузить отмеченные изображения" OnClick="DownloadImages_Click" />	
+				</div>
+				<div style="clear:both">
 				</div>
 			</FooterTemplate>
 	
