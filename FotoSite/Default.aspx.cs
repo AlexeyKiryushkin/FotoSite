@@ -137,14 +137,24 @@ namespace FotoSite
 
 		protected void ImagesListRepeater_ItemCreated(object sender, RepeaterItemEventArgs e)
 		{
-			if (e.Item.ItemType == ListItemType.Footer)
+			try
 			{
-				// подключаем функцию блокировки экрана на время длительной операции создания файлов с историями параметров/уставок
-				// она будет вызвана в браузере при нажатии на кнопку, а отменится при обновлении страницы
-				// по завершению длительной операции
-				//Button downloadImagesBtn = (Button)e.Item.FindControl("DownloadImages");
-				//downloadImagesBtn.Attributes["onclick"] = "this.disabled=true;";
-				//Helper.Log.Debug("К DownloadImages Button подключен вызов блокировки экрана");
+				if (e.Item.ItemType == ListItemType.Footer)
+				{
+					Button downloadImagesBtn = (Button)e.Item.FindControl("DownloadImages");
+					Button checkAllImagesBtn = (Button)e.Item.FindControl("CheckAllImages");
+
+					if (ImagesListRepeater.Items.Count == 0)
+					{
+						downloadImagesBtn.Visible = false;
+						checkAllImagesBtn.Visible = false;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Helper.Log.Debug("Видимость кнопок скачивания: ", ex);
+				Helper.Log.ErrorFormat("{0} при анализе необходимости видимости кнопок скачивания", ex.GetMessages());
 			}
 		}
 
