@@ -92,6 +92,9 @@ namespace FotoSite
 				// запаковать отмеченные изображения в zip
 				using (ZipFile zip = new ZipFile())
 				{
+					// jpg всё равно не сжимаются, на их надо только в один файл затолкать для скачивания
+					zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestSpeed;
+
 					foreach (RepeaterItem ri in ImagesListRepeater.Items)
 					{
 						CheckBox checked4download = (CheckBox)ri.FindControl("CheckToDownload");
