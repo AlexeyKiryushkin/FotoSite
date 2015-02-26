@@ -39,7 +39,10 @@ namespace FotoSite
 			exiftool.StartInfo.StandardErrorEncoding = Encoding.GetEncoding(1251);
 			exiftool.OutputDataReceived += exiftool_OutputDataReceived;
 			exiftool.ErrorDataReceived += exiftool_ErrorDataReceived;
-			exiftool.Start();
+      
+      Helper.Log.DebugFormat("{0} {1}", exiftool.StartInfo.FileName, exiftool.StartInfo.Arguments);
+			
+      exiftool.Start();
 
 			// 1. нельзя синхронно перехватывать оба потока - и output и error
 			// 2. Если процесс не завершается, то все встанет на синхронном перехвате
