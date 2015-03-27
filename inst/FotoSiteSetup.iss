@@ -37,7 +37,7 @@ Name: c:\logs; Permissions: everyone-full; Flags: uninsneveruninstall
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: {sys}\shell32.dll; IconIndex: 32
 
 [CustomMessages]
-russian.InstallDotNet =Перед установкой web сайта системы диспетчеризации       %nнеобходимо установить .NET Framework 4.5.       %n%nУстановка отменяется!
+russian.InstallDotNet =Перед установкой web сайта системы диспетчеризации       %nнеобходимо установить .NET Framework 4.5.1.       %n%nУстановка отменяется!
 russian.InstallIIS =Перед установкой web сайта системы диспетчеризации       %nнеобходимо установить Misrosoft IIS.       %n%nУстановка отменяется!
 russian.VirtualDirNotInstalled=Неудалось создать виртуальный каталог IIS для web-сайта!      %n%nНеобходимо сделать эту операцию вручную!
 russian.NoLoadFile=Не удалось загрузить файл      %n%1      %n
@@ -129,6 +129,44 @@ begin
 	begin
 		MsgBox( CustomMessage('InstallDotNet'), mbError, MB_OK );
 	end;
+end;
+
+function GetDotNet45Release() : Cardinal;
+begin
+  if not RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', result) then
+    result:=0;
+end;
+
+// Проверка, что установлен .NET Framework 4.5.1
+function IsDotNet451Installed(): Boolean;
+begin
+  result:= (GetDotNet45Release() >= 378675);
+
+  if result then
+  begin
+    Log('-->.Net v4.5.1 установлен на этом компьютере!');
+  end
+  else
+  begin
+    Log('-->.Net v4.5.1 не установлен на этом компьютере');
+		MsgBox( CustomMessage('InstallDotNet'), mbError, MB_OK );
+  end;
+end;
+
+// Проверка, что установлен .NET Framework 4.5.2
+function IsDotNet452Installed(): Boolean;
+begin
+  result:= (GetDotNet45Release() >= 379893);
+
+  if result then
+  begin
+    Log('-->.Net v4.5.2 установлен на этом компьютере!');
+  end
+  else
+  begin
+    Log('-->.Net v4.5.2 не установлен на этом компьютере');
+		MsgBox( CustomMessage('InstallDotNet'), mbError, MB_OK );
+  end;
 end;
 
 // Проверка, что установлен Microsoft IIS
@@ -332,7 +370,7 @@ end;
 function InitializeSetup(): Boolean;
 begin
 	// Проверка, что установлено все необходимое ПО
-	result := IsDotNet4Installed() and IsIISInstalled();
+	result := IsDotNet451Installed() and IsIISInstalled();
 end;
 
 // Действия на различных фазах установки
